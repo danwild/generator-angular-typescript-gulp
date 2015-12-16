@@ -46,9 +46,7 @@ module.exports = yeoman.generators.Base.extend({
 	},
 
 	install: function () {
-		//this.installDependencies();
 		this._initNpm();
-		//this._initBower();
 	},
 
 	writing: function () {
