@@ -1,0 +1,19 @@
+{
+  "name": "<%= appname %>",
+  "version": "0.0.0",
+  "dependencies": {
+
+	"<%= props.cssFramework %>": "*",
+	"angular": "*"
+
+  },
+  "overrides": {
+    "bootstrap": {
+      "main": [
+        "less/bootstrap.less",
+        "dist/css/bootstrap.css",
+        "dist/js/bootstrap.js"
+      ]
+    }
+  }
+}
