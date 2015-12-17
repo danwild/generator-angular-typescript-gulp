@@ -123,8 +123,8 @@ module.exports = yeoman.generators.Base.extend({
 	writing: function () {
 
 		this.fs.copyTpl(
-			this.templatePath('src/app/' +this.props.cssFramework+'-index.html'),
-			this.destinationPath('public/src/app/index.html'),
+			this.templatePath('src/app/' +this.props.cssFramework+ '-index.html'),
+			this.destinationPath('public/index.html'),
 			{
 				title: 'Hello Angular TypeScript!',
 				nameDasherized: this.props.nameDasherized,
@@ -135,13 +135,13 @@ module.exports = yeoman.generators.Base.extend({
 			}
 		);
 
-		this.template('gulpfile.js', 'gulpfile.js');
+		this.template('pkg/_gulpfile.js', 'gulpfile.js');
 		this.template('server.js', 'server.js');
 
 		// app shell
-		this.template('src/app/app.js', 'public/src/app/app.js');
+		this.template('src/app/app.ts', 'public/src/app/app.ts');
 		this.template('src/demo/demo.html', 'public/src/demo/demo.html');
-		this.template('src/demo/demo.js', 'public/src/demo/demo.js');
+		this.template('src/demo/demo.ts', 'public/src/demo/demo.ts');
 		this.template('src/demo/demo.css', 'public/src/demo/demo.css');
 	},
 
@@ -158,24 +158,4 @@ module.exports = yeoman.generators.Base.extend({
 	install: function () {
 		this.installDependencies();
 	}
-
-//_initNpm: function() {
-//		this.npmInstall(['express', 'gulp'], { 'saveDev': false });
-//		this.npmInstall([
-//			'gulp-inject',
-//			'gulp-nodemon',
-//			'wiredep'
-//			//'gulp-angular-templatecache',
-//			//'gulp-concat',
-//			//'gulp-concat-css',
-//			//'gulp-minify-css',
-//			//'gulp-rename',
-//			//'gulp-sass',
-//			//'gulp-sourcemaps',
-//			//'gulp-tslint',
-//			//'gulp-typescript',
-//			//'gulp-uglify',
-//			//'tsd'
-//		], { 'saveDev': true });
-//	}
 });

@@ -9,6 +9,7 @@ Once you've run the generator, you'll have:
 	<li>A demo page, injected with bower dependencies plus wired and ready to inject your own src files</li>
 	<li>Gulp tasks for compiling, concatenating and minifying SASS -> CSS</li>
 	<li>Gulp tasks for transpiling, concatenating and minifying TS -> JS</li>
+	<li>Gulp tasks for compiling and injecting your directives with angular template cache</li> 
 	<li>Gulp tasks to watch (nodemon) and serve files with express</li>
 	<li>A shell Angular-TypeScript app, with TypeScript Definitions hooked up ready to go</li>
 	<li>...</li>
@@ -29,6 +30,12 @@ Then generate your new project:
 yo angular-typescript-gulp
 ```
 
+Then build and serve:
+
+```bash
+tsd install
+gulp
+```
 
 ## Project options
 
@@ -41,7 +48,7 @@ yo angular-typescript-gulp
 
 ## License
 
-Apache-2.0 © [Daniel Wild]()
+Apache-2.0 © [Daniel Wild](http://etchdesign.com.au)
 
 [npm-image]: https://badge.fury.io/js/generator-angular-typescript-gulp.svg
 [npm-url]: https://npmjs.org/package/generator-angular-typescript-gulp

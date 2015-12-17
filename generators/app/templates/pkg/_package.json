@@ -24,6 +24,18 @@
 	"gulp": "*",
 	"gulp-nodemon": "*",
 	"gulp-inject": "*",
-	"wiredep": "*"
+	"wiredep": "*",
+	"add-stream": "*",
+	"gulp-concat": "*",
+	"gulp-concat-css": "*",
+	"gulp-rename": "*",
+	"gulp-sourcemaps": "*",
+	"gulp-angular-templatecache": "*",
+	"gulp-typescript": "*",
+	"gulp-tslint": "*",
+	"gulp-uglify": "*",
+	"gulp-sass": "*",
+	"gulp-minify-css": "*",
+	"underscore": "*"
   }
 }

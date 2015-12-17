@@ -6,7 +6,6 @@ generator
 ## Install, Build, Run
 
 ```bash
-bower install
 tsd install
 gulp
 ```
