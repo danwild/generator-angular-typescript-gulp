@@ -20,7 +20,7 @@ module.exports = yeoman.generators.Base.extend({
 				type    : 'input',
 				name    : 'name',
 				message : 'Your project name',
-				default : this.appname, // Default to current folder name
+				default : this.appname // Default to current folder name
 			},
 			{
 				type: 'confirm',
@@ -32,8 +32,28 @@ module.exports = yeoman.generators.Base.extend({
 				type: 'list',
 				name: 'cssFramework',
 				message: 'Which front-end framework would you like?',
-				choices: ['bootstrap', 'foundation']
+				choices: ['foundation', 'bootstrap']
+			},
+			{
+				when: function ( answers ) {
+					// bootstrap ships with glyphicons
+					return answers.cssFramework != 'bootstrap';
+				},
+				type: 'confirm',
+				name: 'useIcons',
+				message: 'Would you like to use some sweet font icons?',
+				default: true
+			},
+			{
+				when: function ( answers ) {
+					return answers.useIcons;
+				},
+				type: 'list',
+				name: 'iconFont',
+				message: 'Which icon set would you like?',
+				choices: ['font-awesome']
 			}
+
 		];
 
 		this.prompt(prompts, function (props) {
@@ -57,7 +77,9 @@ module.exports = yeoman.generators.Base.extend({
 			{
 				title: 'Hello Angular TypeScript!',
 				name: this.props.name,
-				cssFramework: this.props.cssFramework
+				cssFramework: this.props.cssFramework,
+				hasIcons: this.props.useIcons,
+				iconsProvider: this.props.iconFont
 			}
 		);
 

@@ -3,6 +3,10 @@
   "version": "0.0.0",
   "dependencies": {
 
+	<% if(props.useIcons){ %>
+	  "<%= props.iconFont %>": "*",
+	<% } %>
+
 	"<%= props.cssFramework %>": "*",
 	"angular": "*"
 
@@ -20,6 +24,11 @@
 		"css/foundation.css",
 		"js/foundation.js"
 	  ]
+	},
+	"font-awesome": {
+		"main": [
+		  "css/font-awesome.css"
+		]
 	}
   }
 }
