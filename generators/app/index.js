@@ -31,7 +31,7 @@ module.exports = yeoman.generators.Base.extend({
 			{
 				type: 'list',
 				name: 'cssFramework',
-				message: 'What CSS framework would you like?',
+				message: 'Which front-end framework would you like?',
 				choices: ['bootstrap', 'foundation']
 			}
 		];
@@ -52,8 +52,8 @@ module.exports = yeoman.generators.Base.extend({
 	writing: function () {
 
 		this.fs.copyTpl(
-			this.templatePath(this.props.cssFramework+'-index.html'),
-			this.destinationPath('public/views/index.html'),
+			this.templatePath('src/app/' +this.props.cssFramework+'-index.html'),
+			this.destinationPath('public/src/app/index.html'),
 			{
 				title: 'Hello Angular TypeScript!',
 				name: this.props.name,
@@ -61,31 +61,21 @@ module.exports = yeoman.generators.Base.extend({
 			}
 		);
 
-		this.fs.copy(
-			this.templatePath('gulpfile.js'),
-			this.destinationPath('gulpfile.js')
-		);
+		this.template('gulpfile.js', 'gulpfile.js');
+		this.template('server.js', 'server.js');
 
-		this.fs.copy(
-			this.templatePath('server.js'),
-			this.destinationPath('server.js')
-		);
+		// app shell
+		this.template('src/app/app.js', 'public/src/app/app.js');
+		this.template('src/demo/demo.html', 'public/src/demo/demo.html');
+		this.template('src/demo/demo.js', 'public/src/demo/demo.js');
+		this.template('src/demo/demo.css', 'public/src/demo/demo.css');
 	},
 
 	buildPackageFiles: function() {
-		//this.typescript = this.env.options.typescript;
-
 		this.template('pkg/_bower.json', 'bower.json');
 		this.template('pkg/_bowerrc', '.bowerrc');
-
-		//if (this.gulp) {
-		//	this.template('root/_gulpfile.js', 'gulpfile.js');
-		//}
-		//if (this.typescript) {
-		//	this.template('root/_tsd.json', 'tsd.json');
-		//}
-		//this.template('root/README.md', 'README.md');
-
+		this.template('pkg/_tsd.json', 'tsd.json');
+		this.template('pkg/README.md', 'README.md');
 	},
 
 
@@ -107,9 +97,5 @@ _initNpm: function() {
 			//'gulp-uglify',
 			//'tsd'
 		], { 'saveDev': true });
-	},
-
-	_initBower: function() {
-		this.bowerInstall(['bootstrap', 'angular'], { 'saveDev': false });
 	}
 });

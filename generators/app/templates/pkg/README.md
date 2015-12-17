@@ -7,6 +7,7 @@ generator
 
 ```bash
 bower install
+tsd install
 gulp
 ```
 

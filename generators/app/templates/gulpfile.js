@@ -5,17 +5,17 @@ var wiredep     = require('wiredep').stream;
 
 
 var watchFiles = [
-	'./public/views/*.html',
-	'./public/js/*.js',
-	'./public/css/*.js'
+	'./public/src/**/*.html',
+	'./public/src/**/*.js',
+	'./public/src/**/*.css'
 ];
 
 gulp.task('inject', function(){
 
 	// inject our src from public
 	var injectSrc = gulp.src([
-		'./public/css/*.css',
-		'./public/js/*.js'
+		'./public/src/**/*.css',
+		'./public/src/**/*.js'
 	], { read: false });
 
 	var injectOptions = {
@@ -29,10 +29,10 @@ gulp.task('inject', function(){
 		ignorePath: '../../public'
 	};
 
-	return gulp.src('./public/views/*.html')
+	return gulp.src('./public/src/**/*.html')
 		.pipe(wiredep(options))
 		.pipe(inject(injectSrc, injectOptions))
-		.pipe(gulp.dest('./public/views'));
+		.pipe(gulp.dest('./public/src'));
 
 });
 
