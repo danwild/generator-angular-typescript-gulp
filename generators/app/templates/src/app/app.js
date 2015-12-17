@@ -1,5 +1,5 @@
 
-angular.module('yourApp', [
+angular.module('<%= props.nameCamelized %>App', [
 	'demo.module'
 ]);
 

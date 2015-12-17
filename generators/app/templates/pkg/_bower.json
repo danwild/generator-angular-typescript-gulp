@@ -1,5 +1,5 @@
 {
-  "name": "<%= appname %>",
+  "name": "<%= props.nameDasherized %>",
   "version": "0.0.0",
   "dependencies": {
 

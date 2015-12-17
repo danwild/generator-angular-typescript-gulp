@@ -3,6 +3,7 @@
 var yeoman = require('yeoman-generator');
 var chalk = require('chalk');
 var yosay = require('yosay');
+var _     = require('underscore.string');
 
 module.exports = yeoman.generators.Base.extend({
 
@@ -29,10 +30,61 @@ module.exports = yeoman.generators.Base.extend({
 				default: true
 			},
 			{
+				type    : 'input',
+				name    : 'description',
+				message : 'Project description',
+				default : 'No description yet'
+			},
+			{
+				type    : 'input',
+				name    : 'version',
+				message : 'Project version',
+				default : '0.0.0'
+			},
+			{
+				type    : 'input',
+				name    : 'authorName',
+				message : 'Author Name',
+				default : ''
+			},
+			{
+				type    : 'input',
+				name    : 'authorEmail',
+				message : 'Author Email',
+				default : ''
+			},
+			{
+				type    : 'input',
+				name    : 'authorUrl',
+				message : 'Author Url',
+				default : ''
+			},
+			{
+				type    : 'input',
+				name    : 'repo',
+				message : 'Project repository',
+				default : ''
+			},
+			{
+				type: 'confirm',
+				name: 'addLicense',
+				message: 'Add a license for the project?',
+				default: true
+			},
+			{
+				when: function ( answers ) {
+					return answers.addLicense;
+				},
+				type: 'list',
+				name: 'license',
+				message: 'Which license',
+				choices: ['Apache-2.0', 'MIT License', 'GNU General Public License 2.0', 'ISC']
+			},
+			{
 				type: 'list',
 				name: 'cssFramework',
 				message: 'Which front-end framework would you like?',
-				choices: ['foundation', 'bootstrap']
+				choices: ['bootstrap', 'foundation']
 			},
 			{
 				when: function ( answers ) {
@@ -60,13 +112,12 @@ module.exports = yeoman.generators.Base.extend({
 
 			// access this.props.someOption;
 			this.props = props;
+			this.appname = props.name;
+			this.props.nameDasherized = _.dasherize(this.appname);
+			this.props.nameCamelized = _.camelize(this.appname);
 
 			done();
 		}.bind(this));
-	},
-
-	install: function () {
-		this._initNpm();
 	},
 
 	writing: function () {
@@ -76,7 +127,8 @@ module.exports = yeoman.generators.Base.extend({
 			this.destinationPath('public/src/app/index.html'),
 			{
 				title: 'Hello Angular TypeScript!',
-				name: this.props.name,
+				nameDasherized: this.props.nameDasherized,
+				nameCamelized: this.props.nameCamelized,
 				cssFramework: this.props.cssFramework,
 				hasIcons: this.props.useIcons,
 				iconsProvider: this.props.iconFont
@@ -93,31 +145,37 @@ module.exports = yeoman.generators.Base.extend({
 		this.template('src/demo/demo.css', 'public/src/demo/demo.css');
 	},
 
+	// setup our pkg files
 	buildPackageFiles: function() {
+		this.template('pkg/_package.json', 'package.json');
 		this.template('pkg/_bower.json', 'bower.json');
 		this.template('pkg/_bowerrc', '.bowerrc');
 		this.template('pkg/_tsd.json', 'tsd.json');
 		this.template('pkg/README.md', 'README.md');
 	},
 
-
-_initNpm: function() {
-		this.npmInstall(['express', 'gulp'], { 'saveDev': false });
-		this.npmInstall([
-			'gulp-inject',
-			'gulp-nodemon',
-			'wiredep',
-			//'gulp-angular-templatecache',
-			//'gulp-concat',
-			//'gulp-concat-css',
-			//'gulp-minify-css',
-			//'gulp-rename',
-			//'gulp-sass',
-			//'gulp-sourcemaps',
-			//'gulp-tslint',
-			//'gulp-typescript',
-			//'gulp-uglify',
-			//'tsd'
-		], { 'saveDev': true });
+	// load up all our deps
+	install: function () {
+		this.installDependencies();
 	}
+
+//_initNpm: function() {
+//		this.npmInstall(['express', 'gulp'], { 'saveDev': false });
+//		this.npmInstall([
+//			'gulp-inject',
+//			'gulp-nodemon',
+//			'wiredep'
+//			//'gulp-angular-templatecache',
+//			//'gulp-concat',
+//			//'gulp-concat-css',
+//			//'gulp-minify-css',
+//			//'gulp-rename',
+//			//'gulp-sass',
+//			//'gulp-sourcemaps',
+//			//'gulp-tslint',
+//			//'gulp-typescript',
+//			//'gulp-uglify',
+//			//'tsd'
+//		], { 'saveDev': true });
+//	}
 });

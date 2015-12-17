@@ -1,0 +1,29 @@
+{
+  "name": "<%= props.nameDasherized %>",
+  "version": "<%= props.version %>",
+  "description": "<%= props.description %>",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": {
+	"name": "<%= props.authorName %>",
+	"email": "<%= props.authorEmail %>",
+	"url": "<%= props.authorUrl %>"
+  },
+  "license": "<%= props.license %>",
+  "keywords": [
+	"angular",
+	"typescript"
+  ],
+  "repository": "<%= props.repo %>",
+  "dependencies": {
+	"express": "*"
+  },
+  "devDependencies": {
+	"gulp": "*",
+	"gulp-nodemon": "*",
+	"gulp-inject": "*",
+	"wiredep": "*"
+  }
+}
