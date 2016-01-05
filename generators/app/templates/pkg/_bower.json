@@ -2,14 +2,9 @@
   "name": "<%= props.nameDasherized %>",
   "version": "0.0.0",
   "dependencies": {
-
-	<% if(props.useIcons){ %>
-	  "<%= props.iconFont %>": "*",
-	<% } %>
-
+	<% if(props.useIcons){ %>"<%= props.iconFont %>": "*",<% } %>
 	"<%= props.cssFramework %>": "*",
 	"angular": "*"
-
   },
   "overrides": {
     "bootstrap": {

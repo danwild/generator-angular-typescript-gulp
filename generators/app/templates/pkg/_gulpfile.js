@@ -1,9 +1,7 @@
-var gulp        = require('gulp');
-var nodemon     = require('gulp-nodemon');
-var inject      = require('gulp-inject');
-var wiredep     = require('wiredep').stream;
-
 var addStream     = require('add-stream');
+var gulp          = require('gulp');
+var nodemon       = require('gulp-nodemon');
+var inject        = require('gulp-inject');
 var concat        = require('gulp-concat');
 var concatCss     = require('gulp-concat-css');
 var rename        = require('gulp-rename');
@@ -14,18 +12,19 @@ var tslint        = require('gulp-tslint');
 var uglify        = require('gulp-uglify');
 var sass          = require('gulp-sass');
 var minifyCss     = require('gulp-minify-css');
+var path          = require('path');
+var wiredep       = require('wiredep').stream;
 var _             = require('underscore');
 
+// Lint to keep us in line
+gulp.task('lint', function() {
+	return gulp.src('public/src/**/*.ts')
+		.pipe(tslint())
+		.pipe(tslint.report('default'));
+});
 
-var watchFiles = [
-
-	'./public/src/**/*.html',
-	'./public/src/**/*.ts',
-	'./public/src/**/*.css'
-];
-
-// Concatenate & Minify JS
-gulp.task('scripts', ['inject'], function() {
+// Concatenate & minify JS
+gulp.task('scripts', function() {
 
 	return gulp.src('public/src/**/*.ts')
 		.pipe(addStream.obj(prepareTemplates()))
@@ -42,11 +41,33 @@ gulp.task('scripts', ['inject'], function() {
 		.pipe(gulp.dest('public/dist'));
 });
 
-gulp.task('inject', function(){
+// Compile, concat & minify sass
+gulp.task('sass', function () {
+	return gulp.src('public/src/**/*.scss')
+		.pipe(sass().on('error', sass.logError))
+		.pipe(gulp.dest('public/dist/css'));
+});
 
-	// inject our src from public
+gulp.task('concatCss', ['sass'], function () {
+	return gulp.src('public/dist/css/**/*.css')
+		.pipe(concatCss("app.css"))
+		.pipe(gulp.dest('public/dist'))
+});
+
+gulp.task('minifyCss', ['sass', 'concatCss'], function() {
+	return gulp.src('public/dist/app.css')
+		.pipe(minifyCss())
+		.pipe(rename({suffix: '.min'}))
+		.pipe(gulp.dest('public/dist'));
+});
+
+// Inject dist + bower lib files
+gulp.task('inject', ['scripts', 'minifyCss'], function(){
+
+	// inject our dist files
 	var injectSrc = gulp.src([
-		'./public/src/**/*.css'
+		'./public/dist/app.css',
+		'./public/dist/app.js'
 	], { read: false });
 
 	var injectOptions = {
@@ -67,15 +88,36 @@ gulp.task('inject', function(){
 
 });
 
-gulp.task('serve', ['inject'], function(){
+gulp.task('serve', ['scripts', 'minifyCss', 'inject'], function(){
 
 	var options = {
+		restartable: "rs",
+		verbose: true,
+		ext: "ts html scss",
 		script: 'server.js',
 		delayTime: 1,
+		watch: ['public/src/**/*(*.ts|*.html)', 'public/src/**/*.scss'],
 		env: {
 			'PORT': 3000
 		},
-		watch: watchFiles
+		ignore: ["public/dist/*", "public/dist/**/**"],
+		// bit faster if we only do what we need to
+		tasks: function (changedFiles) {
+			var tasks = [];
+			changedFiles.forEach(function (file) {
+				var ext = path.extname(file);
+				if (ext === '.ts' || ext === '.html'){
+					tasks.push('lint');
+					tasks.push('scripts');
+				}
+				else if (ext === '.scss'){
+					tasks.push('sass');
+					tasks.push('concatCss');
+					tasks.push('minifyCss');
+				}
+			});
+			return tasks
+		}
 	};
 
 	return nodemon(options)
@@ -85,13 +127,12 @@ gulp.task('serve', ['inject'], function(){
 });
 
 // Default Task
-gulp.task('default', ['inject', 'scripts', 'serve']);
-
+gulp.task('default', ['lint', 'scripts', 'sass', 'concatCss', 'minifyCss', 'inject', 'serve']);
 
 function prepareTemplates() {
 
 	// we get a conflict with the < % = var % > syntax for $templateCache
-	// template header, so we need to encode values to keep yo happy
+	// template header, so we'll just encode values to keep yo happy
 	var encodedHeader = "angular.module(&quot;&lt;%= module %&gt;&quot;&lt;%= standalone %&gt;).run([&quot;$templateCache&quot;, function($templateCache:any) {";
 	return gulp.src('public/src/**/*.html')
 		.pipe(templateCache('templates.ts', {

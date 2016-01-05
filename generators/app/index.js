@@ -78,7 +78,7 @@ module.exports = yeoman.generators.Base.extend({
 				type: 'list',
 				name: 'license',
 				message: 'Which license',
-				choices: ['Apache-2.0', 'MIT License', 'GNU General Public License 2.0', 'ISC']
+				choices: ['Apache-2.0', 'MIT', 'GPL-2.0', 'ISC']
 			},
 			{
 				type: 'list',
@@ -142,7 +142,7 @@ module.exports = yeoman.generators.Base.extend({
 		this.template('src/app/app.ts', 'public/src/app/app.ts');
 		this.template('src/demo/demo.html', 'public/src/demo/demo.html');
 		this.template('src/demo/demo.ts', 'public/src/demo/demo.ts');
-		this.template('src/demo/demo.css', 'public/src/demo/demo.css');
+		this.template('src/demo/demo.scss', 'public/src/demo/demo.scss');
 	},
 
 	// setup our pkg files
