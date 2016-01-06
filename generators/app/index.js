@@ -156,6 +156,12 @@ module.exports = yeoman.generators.Base.extend({
 
 	// load up all our deps
 	install: function () {
-		this.installDependencies();
+		this.installDependencies({
+			callback: function(){
+				console.log(yosay(
+					'Yo everything is ready! Now just run '+ chalk.red('\n$ tsd install\n$ gulp')
+				));
+			}
+		});
 	}
 });
