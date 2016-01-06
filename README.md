@@ -37,13 +37,12 @@ tsd install
 gulp
 ```
 
-## Project framework options
-
+## Project framework options 
+<p>(ok a little fluff)</p>
 <ul>
 	<li><strong>Front-end framework:</strong> Bootstrap, Foundation</li>
 	<li><strong>Icon font:</strong> Font Awesome (or Bootstrap comes with Glyphs)</li>
 </ul>	
-
 
 
 ## License

@@ -24,12 +24,6 @@ module.exports = yeoman.generators.Base.extend({
 				default : this.appname // Default to current folder name
 			},
 			{
-				type: 'confirm',
-				name: 'someOption',
-				message: 'Would you like to enable the flux capacitor?',
-				default: true
-			},
-			{
 				type    : 'input',
 				name    : 'description',
 				message : 'Project description',
@@ -64,21 +58,6 @@ module.exports = yeoman.generators.Base.extend({
 				name    : 'repo',
 				message : 'Project repository',
 				default : ''
-			},
-			{
-				type: 'confirm',
-				name: 'addLicense',
-				message: 'Add a license for the project?',
-				default: true
-			},
-			{
-				when: function ( answers ) {
-					return answers.addLicense;
-				},
-				type: 'list',
-				name: 'license',
-				message: 'Which license',
-				choices: ['Apache-2.0', 'MIT', 'GPL-2.0', 'ISC']
 			},
 			{
 				type: 'list',
@@ -159,7 +138,7 @@ module.exports = yeoman.generators.Base.extend({
 		this.installDependencies({
 			callback: function(){
 				console.log(yosay(
-					'Yo everything is ready! Now just run '+ chalk.red('\n$ tsd install\n$ gulp')
+					'Yo, everything is ready! Now just run '+ chalk.red('\n$ tsd install\n$ gulp ')
 				));
 			}
 		});
