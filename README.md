@@ -30,7 +30,7 @@ Then generate your new project:
 yo angular-typescript-gulp
 ```
 
-Then build and serve:
+Then build and serve (assuming you have [tsd](https://www.npmjs.com/package/tsd) installed):
 
 ```bash
 tsd install
