@@ -4,6 +4,7 @@ var nodemon       = require('gulp-nodemon');
 var inject        = require('gulp-inject');
 var concat        = require('gulp-concat');
 var concatCss     = require('gulp-concat-css');
+var cssNano       = require('gulp-cssnano');
 var rename        = require('gulp-rename');
 var sourceMaps    = require('gulp-sourcemaps');
 var templateCache = require('gulp-angular-templatecache');
@@ -11,7 +12,6 @@ var ts            = require('gulp-typescript');
 var tslint        = require('gulp-tslint');
 var uglify        = require('gulp-uglify');
 var sass          = require('gulp-sass');
-var minifyCss     = require('gulp-minify-css');
 var path          = require('path');
 var wiredep       = require('wiredep').stream;
 var _             = require('underscore');
@@ -54,15 +54,15 @@ gulp.task('concatCss', ['sass'], function () {
 		.pipe(gulp.dest('public/dist'))
 });
 
-gulp.task('minifyCss', ['sass', 'concatCss'], function() {
+gulp.task('cssNano', ['sass', 'concatCss'], function() {
 	return gulp.src('public/dist/app.css')
-		.pipe(minifyCss())
+		.pipe(cssNano())
 		.pipe(rename({suffix: '.min'}))
 		.pipe(gulp.dest('public/dist'));
 });
 
 // Inject dist + bower lib files
-gulp.task('inject', ['scripts', 'minifyCss'], function(){
+gulp.task('inject', ['scripts', 'cssNano'], function(){
 
 	// inject our dist files
 	var injectSrc = gulp.src([
@@ -88,7 +88,7 @@ gulp.task('inject', ['scripts', 'minifyCss'], function(){
 
 });
 
-gulp.task('serve', ['scripts', 'minifyCss', 'inject'], function(){
+gulp.task('serve', ['scripts', 'cssNano', 'inject'], function(){
 
 	var options = {
 		restartable: "rs",
@@ -113,7 +113,7 @@ gulp.task('serve', ['scripts', 'minifyCss', 'inject'], function(){
 				else if (ext === '.scss'){
 					tasks.push('sass');
 					tasks.push('concatCss');
-					tasks.push('minifyCss');
+					tasks.push('cssNano');
 				}
 			});
 			return tasks
@@ -127,7 +127,7 @@ gulp.task('serve', ['scripts', 'minifyCss', 'inject'], function(){
 });
 
 // Default Task
-gulp.task('default', ['lint', 'scripts', 'sass', 'concatCss', 'minifyCss', 'inject', 'serve']);
+gulp.task('default', ['lint', 'scripts', 'sass', 'concatCss', 'cssNano', 'inject', 'serve']);
 
 function prepareTemplates() {
 
