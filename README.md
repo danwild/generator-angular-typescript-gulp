@@ -30,12 +30,49 @@ Then generate your new project:
 yo angular-typescript-gulp
 ```
 
-Then build and serve (assuming you have [tsd](https://www.npmjs.com/package/tsd) installed):
+Then build and serve (oh yeah, you'll also need [tsd](https://www.npmjs.com/package/tsd) installed):
 
 ```bash
 tsd install
 gulp
 ```
+
+## App scaffold
+
+```
+project/
+│   README.md
+│   bower.json
+│   gulpfile.js
+│   package.json
+│   server.js
+│   tsd.json   
+└───node_modules/
+│
+│
+└───typings/
+│       tsd.d.ts
+│    
+└───public/
+    │   index.html   
+    │
+    ├───dist/ 
+    │
+    │   
+    ├───lib/ (bower_components)    
+    │  
+    │
+    └───src/ (add your own components in here)
+        │    
+        └───app/
+            │   app.ts (app root)   
+            │
+            demo/ (example component)    
+    
+```
+
+Just write and add your own src files (.ts, .html, .scss) to tidy little component folders under `public/src` (example: `public/src/demo` folder),
+and they'll be gulped and served.
 
 ## Project framework options 
 <p>(ok a little fluff)</p>

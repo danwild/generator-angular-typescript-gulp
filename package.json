@@ -1,6 +1,6 @@
 {
   "name": "generator-angular-typescript-gulp",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "A no-fluff yeoman generator for AngularJS/Typescript apps, uses Gulp instead of Grunt",
   "homepage": "",
   "author": {
