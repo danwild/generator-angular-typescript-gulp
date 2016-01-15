@@ -59,13 +59,13 @@ project/
     ├───dist/ 
     │
     │   
-    ├───lib/ (bower_components)    
+    ├───lib/ (aka bower_components)    
     │  
     │
     └───src/ (add your own components in here)
         │    
         └───app/
-            │   app.ts (app root)   
+            │   app.ts   
             │
             demo/ (example component)    
     
