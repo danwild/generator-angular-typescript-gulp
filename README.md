@@ -15,7 +15,7 @@ Once you've run the generator, you'll have:
 ## Installation
 
 First, install [Yeoman](http://yeoman.io), 
-generator-angular-typescript-gulp, 
+[generator-angular-typescript-gulp](https://www.npmjs.com/package/generator-angular-typescript-gulp), 
 and [typings](https://www.npmjs.com/package/typings) using [npm](https://www.npmjs.com/) 
 (we'll assume you have pre-installed [node.js](https://nodejs.org/)).
 
