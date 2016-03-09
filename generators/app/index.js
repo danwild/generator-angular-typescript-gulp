@@ -129,7 +129,7 @@ module.exports = yeoman.generators.Base.extend({
 		this.template('pkg/_package.json', 'package.json');
 		this.template('pkg/_bower.json', 'bower.json');
 		this.template('pkg/_bowerrc', '.bowerrc');
-		this.template('pkg/_tsd.json', 'tsd.json');
+		this.template('pkg/_typings.json', 'typings.json');
 		this.template('pkg/README.md', 'README.md');
 	},
 
@@ -138,7 +138,7 @@ module.exports = yeoman.generators.Base.extend({
 		this.installDependencies({
 			callback: function(){
 				console.log(yosay(
-					'Yo, everything is ready! Now just run '+ chalk.red('\n$ tsd install\n$ gulp ')
+					'Yo, everything is ready! Now just run '+ chalk.red('\n$ typings install\n$ gulp ')
 				));
 			}
 		});

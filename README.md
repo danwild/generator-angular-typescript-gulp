@@ -5,23 +5,24 @@
 
 Once you've run the generator, you'll have:
 
-<ul>
-	<li>A demo page, injected with bower dependencies plus wired to compile and inject your own src files</li>
-	<li>Gulp tasks for transpiling, concatenating and minifying TS -> JS</li>
-	<li>Gulp tasks for compiling, concatenating and minifying SASS -> CSS</li>
-	<li>Gulp tasks for compiling and injecting your directives with angular template cache</li> 
-	<li>Gulp tasks to watch (nodemon) and serve files with express</li>
-	<li>A shell Angular-TypeScript app, with TypeScript Definitions hooked up ready to go</li>
-</ul>	
+- A demo page, injected with bower dependencies plus wired to compile and inject your own src files
+- Gulp tasks for transpiling, concatenating and minifying TS -> JS
+- Gulp tasks for compiling, concatenating and minifying SASS -> CSS
+- Gulp tasks for compiling and injecting your directives with angular template cache 
+- Gulp tasks to watch (nodemon) and serve files with express
+- A shell Angular-TypeScript app, with TypeScript Definitions hooked up ready to go	
 
 ## Installation
 
-First, install [Yeoman](http://yeoman.io) and generator-angular-typescript-gulp using [npm](https://www.npmjs.com/) 
-(we assume you have pre-installed [node.js](https://nodejs.org/)).
+First, install [Yeoman](http://yeoman.io), 
+generator-angular-typescript-gulp, 
+and [typings](https://www.npmjs.com/package/typings) using [npm](https://www.npmjs.com/) 
+(we'll assume you have pre-installed [node.js](https://nodejs.org/)).
 
 ```bash
 npm install -g yo
 npm install -g generator-angular-typescript-gulp
+npm install -g typings
 ```
 
 Then generate your new project:
@@ -30,10 +31,10 @@ Then generate your new project:
 yo angular-typescript-gulp
 ```
 
-Then build and serve (oh yeah, you'll also need [tsd](https://www.npmjs.com/package/tsd) installed):
+Install the TypeScript definitions, build and serve:
 
 ```bash
-tsd install
+typings install
 gulp
 ```
 
@@ -46,12 +47,12 @@ project/
 │   gulpfile.js
 │   package.json
 │   server.js
-│   tsd.json   
+│   typings.json   
 └───node_modules/
 │
 │
 └───typings/
-│       tsd.d.ts
+│       main.d.ts
 │    
 └───public/
     │   index.html   
