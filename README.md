@@ -52,7 +52,7 @@ project/
 │
 │
 └───typings/
-│       main.d.ts
+│       index.d.ts
 │    
 └───public/
     │   index.html   
